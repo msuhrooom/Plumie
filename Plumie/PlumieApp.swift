@@ -13,7 +13,7 @@ struct PlumieApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HexagramView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

@@ -1,0 +1,16 @@
+PODS:
+  - LunarSwift (1.1.0)
+
+DEPENDENCIES:
+  - LunarSwift
+
+SPEC REPOS:
+  trunk:
+    - LunarSwift
+
+SPEC CHECKSUMS:
+  LunarSwift: 8bd3c03fffc50d46104d35d62b6f7e0c4b6a7f73
+
+PODFILE CHECKSUM: 86c0e69f35e478ad952b2f8741a84597b9fea060
+
+COCOAPODS: 1.16.2

@@ -1,0 +1,6 @@
+framework module LunarSwift {
+  umbrella header "LunarSwift-umbrella.h"
+
+  export *
+  module * { export * }
+}

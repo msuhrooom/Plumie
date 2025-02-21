@@ -1,0 +1,6 @@
+framework module Pods_Plumie_PlumieUITests {
+  umbrella header "Pods-Plumie-PlumieUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
