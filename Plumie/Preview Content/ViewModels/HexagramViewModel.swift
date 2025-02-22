@@ -21,9 +21,15 @@ class HexagramViewModel: ObservableObject {
         
         // turn into array
         var lines = Array(hexagramBinary)
-        
+        var index = 0
         // reverse Yin/Yang
-        let index = changingLine - 1
+        if changingLine == 0 {
+            index = 0
+        }
+        else {
+            index = 5 - changingLine 
+        }
+        
         if index >= 0 && index < 6 {
             lines[index] = (lines[index] == "1") ? "0" : "1"
         }
@@ -55,15 +61,16 @@ class HexagramViewModel: ObservableObject {
         let lunarYear = lunar.year
         let lunarMonth = lunar.month
         let lunarDay = lunar.day
-        let lunarHour = lunar.hour
+        var lunarHour = lunar.hour
+        lunarHour = Int(((lunarHour + 1) % 24) / 2) + 1
 
-        print("Lunar Date: \(lunarYear)年 \(lunarMonth)月 \(lunarDay)日 时辰: \(lunarHour)")
+        print("Lunar Date: \(lunarYear)年 \(lunarMonth)月 \(lunarDay)日 时:\(lunar.hour) 时辰: \(lunarHour)")
 
         // Compute hexagram using Lunar Date
         let upper = (lunarYear + lunarMonth + lunarDay) % 8
         let lower = (lunarHour) % 8
         let changingLine = (lunarYear + lunarMonth + lunarDay + lunarHour) % 6
-        
+        print("Upper: \(upper) Lower: \(lower) Changing Line: \(changingLine)")
 
         
 
@@ -73,10 +80,13 @@ class HexagramViewModel: ObservableObject {
         // Apply changing line
         transformedHexagram = nil
                 var transformedKey = key
-                if changingLine > 0 {
+                if changingLine >= 0 {
                     transformedKey = applyChangingLine(key: key, changingLine: changingLine)
+                    print(transformedKey)
                     transformedHexagram = HexagramData().hexagrams[transformedKey]
                 }
+        
+        print("Transformed Hexagram: \(transformedHexagram?.name ?? "Unknown")")
 
         print("Generated Hexagram: \(selectedHexagram?.name ?? "Unknown")")
         

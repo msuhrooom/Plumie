@@ -27,7 +27,7 @@ struct HexagramView: View {
             }
 
 
-            if let transformedHexagram = viewModel.transformedHexagram, transformedHexagram.name != viewModel.selectedHexagram!.name {
+            if let transformedHexagram = viewModel.transformedHexagram {
                 VStack {
                     Text("变卦: \(transformedHexagram.name)").font(.headline)
                     Text("卦象: \(transformedHexagram.hexagram)").font(.largeTitle)
