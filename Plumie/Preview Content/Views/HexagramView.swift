@@ -9,9 +9,9 @@ struct HexagramView: View {
             Text("Hexagram for NOW")
                 .font(.title)
             
-            TextField("Enter your question",  text: $question)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding()
+//            TextField("Enter your question",  text: $question)
+//                .textFieldStyle(RoundedBorderTextFieldStyle())
+//                .padding()
 
             Button("Generate") {
                 viewModel.generateHexagramFromLunarDate()
@@ -19,15 +19,25 @@ struct HexagramView: View {
 
             if let hexagram = viewModel.selectedHexagram {
                 VStack {
-                    Text("卦名: \(hexagram.name)").font(.headline)
+                    Text("主卦: \(hexagram.name)").font(.headline)
                     Text("卦象: \(hexagram.hexagram)").font(.largeTitle)
                     Text("卦爻: \(hexagram.guaYao)").padding()
                 }
                 .padding()
             }
+
+
+            if let transformedHexagram = viewModel.transformedHexagram, transformedHexagram.name != viewModel.selectedHexagram!.name {
+                VStack {
+                    Text("变卦: \(transformedHexagram.name)").font(.headline)
+                    Text("卦象: \(transformedHexagram.hexagram)").font(.largeTitle)
+                    Text("卦爻: \(transformedHexagram.guaYao)").padding()
+                }
+                .padding()
+            }
+
+
         }
         .padding()
     }
 }
-
-
