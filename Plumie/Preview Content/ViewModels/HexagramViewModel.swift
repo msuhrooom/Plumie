@@ -3,6 +3,42 @@ import LunarSwift
 
 class HexagramViewModel: ObservableObject {
     @Published var selectedHexagram: Hexagram?
+    
+    private func applyChangingLine(key: String, changingLine: Int) -> String {
+        let hexagramData = HexagramData()
+        // get hexagram binary
+        guard let firstBinary = hexagramData.hexagramBinaryMapping[String(key.prefix(1))],
+              let secondBinary = hexagramData.hexagramBinaryMapping[String(key.dropFirst().prefix(1))]
+        else {
+            return key
+        }
+
+        let hexagramBinary = firstBinary + secondBinary
+
+        
+        // turn into array
+        var lines = Array(hexagramBinary)
+        
+        // reverse Yin/Yang
+        let index = 6 - changingLine
+        if index >= 0 && index < 6 {
+            lines[index] = (lines[index] == "1") ? "0" : "1"
+        }
+        
+        //generate new key
+        let newHexagramBinary = String(lines)
+        let firstChar = String(newHexagramBinary.prefix(1))  // Get first character as String
+        let secondChar = String(newHexagramBinary.dropFirst().prefix(1))  // Get second character
+
+        if let firstMapped = hexagramData.hexagramBinaryMapping[firstChar],
+           let secondMapped = hexagramData.hexagramBinaryMapping[secondChar] {
+            return firstMapped + secondMapped
+        }
+
+        // If invalid, return original key
+        return newHexagramBinary
+
+    }
 
     func generateHexagramFromLunarDate() {
         //Get current local time
@@ -20,13 +56,28 @@ class HexagramViewModel: ObservableObject {
         // Compute hexagram using Lunar Date
         let upper = (lunarYear + lunarMonth + lunarDay) % 8
         let lower = (lunarHour) % 8
-        _ = (lunarYear + lunarMonth + lunarDay + lunarHour) % 6
+        let changingLine = (lunarYear + lunarMonth + lunarDay + lunarHour) % 6
+        
+
+        
 
         let key = "\(upper == 0 ? 8 : upper)\(lower == 0 ? 8 : lower)"
         selectedHexagram = HexagramData().hexagrams[key]
+        
+        // Apply changing line
+        var transformedHexagram: Hexagram? = nil
+                var transformedKey = key
+                if changingLine > 0 {
+                    transformedKey = applyChangingLine(key: key, changingLine: changingLine)
+                    transformedHexagram = HexagramData().hexagrams[transformedKey]
+                }
 
         print("Generated Hexagram: \(selectedHexagram?.name ?? "Unknown")")
+        
+
     }
+    
+
 }
 
 

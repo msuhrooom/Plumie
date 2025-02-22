@@ -2,6 +2,17 @@ import Foundation
 
 
 struct HexagramData {
+    let hexagramBinaryMapping: [String: String] = [
+        "1" : "111",  // 乾 (Qián)
+        "2" : "011",  // 兑 (Duì)
+        "3" : "101",  // 离 (Lí)
+        "4" : "001",  // 震 (Zhèn)
+        "5" : "110",  // 巽 (Xùn)
+        "6" : "010",  // 坎 (Kǎn)
+        "7" : "100",  // 艮 (Gèn)
+        "8" : "000"   // 坤 (Kūn)
+    ]
+    
     let hexagrams: [String: Hexagram] = [
         // -------------------------------------------------------
         // 1. 上卦为“乾(1)”，下卦为“乾(1)” -- "11"
