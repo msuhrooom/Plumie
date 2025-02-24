@@ -11,7 +11,10 @@ This project is a SwiftUI-based application that allows users to generate hexagr
 - Interactive UI for input and results
 
 ## Screenshot
-![screenshot](./Plumie/Preview Content/assets/screenshot.jpeg)
+<p>
+    <img src="./Plumie/Preview Content/assets/screenshot.jpeg" width="400" />
+</p>
+
 
 ## TODO
 
