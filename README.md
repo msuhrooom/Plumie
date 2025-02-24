@@ -10,6 +10,9 @@ This project is a SwiftUI-based application that allows users to generate hexagr
 - Display hexagram details, including name and symbol
 - Interactive UI for input and results
 
+## Screenshot
+![screenshot](./Plumie/Preview Content/assets/screenshot.jpeg)
+
 ## TODO
 
 - AI-Interpretation on the question inputed and the hexagram result
