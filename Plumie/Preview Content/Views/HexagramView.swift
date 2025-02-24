@@ -3,40 +3,36 @@ import SwiftUI
 struct HexagramView: View {
     @StateObject private var viewModel = HexagramViewModel()
     @State var question: String = ""
+    @FocusState private var isTextFieldFocused: Bool // Tracks focus state
+
     
     var body: some View {
         VStack(spacing: 20) {
-            Text("Hexagram for NOW")
+            Text("赛博梅花易数")
                 .font(.title)
             
-//            TextField("Enter your question",  text: $question)
-//                .textFieldStyle(RoundedBorderTextFieldStyle())
-//                .padding()
-
-            Button("Generate") {
-                viewModel.generateHexagramFromLunarDate()
-            }
-
-            if let hexagram = viewModel.selectedHexagram {
-                VStack {
-                    Text("主卦: \(hexagram.name)").font(.headline)
-                    Text("卦象: \(hexagram.hexagram)").font(.largeTitle)
-                    Text("卦爻: \(hexagram.guaYao)").padding()
-                }
+            TextField("请输入你此时的疑惑：",  text: $question)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
+                .focused($isTextFieldFocused)
+            
+            Button("询问AI神棍") {
+                viewModel.generateHexagramFromLunarDate(question: question)
+                isTextFieldFocused = false  // 关闭键盘
             }
-
-
-            if let transformedHexagram = viewModel.transformedHexagram {
-                VStack {
-                    Text("变卦: \(transformedHexagram.name)").font(.headline)
-                    Text("卦象: \(transformedHexagram.hexagram)").font(.largeTitle)
-                    Text("卦爻: \(transformedHexagram.guaYao)").padding()
-                }
-                .padding()
+            .padding()
+            
+            
+            if viewModel.isLoading {
+                ProgressView("正在询问 AI 神棍...")
+                    .padding()
             }
-
-
+            
+            if !viewModel.interpretation.isEmpty && !viewModel.isLoading {
+                Text(viewModel.interpretation)
+                    .padding()
+                    .multilineTextAlignment(.leading)
+            }
         }
         .padding()
     }

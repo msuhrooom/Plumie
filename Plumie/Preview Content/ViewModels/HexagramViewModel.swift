@@ -4,6 +4,8 @@ import LunarSwift
 class HexagramViewModel: ObservableObject {
     @Published var selectedHexagram: Hexagram?
     @Published var transformedHexagram: Hexagram?
+    @Published var interpretation: String = ""
+    @Published var isLoading: Bool = false
     
     private func applyChangingLine(key: String, changingLine: Int) -> String {
         let hexagramData = HexagramData()
@@ -52,7 +54,7 @@ class HexagramViewModel: ObservableObject {
 
     }
 
-    func generateHexagramFromLunarDate() {
+    func generateHexagramFromLunarDate(question: String) {
         //Get current local time
 
         let solar = Solar.fromDate(date: Date())
@@ -90,6 +92,25 @@ class HexagramViewModel: ObservableObject {
 
         print("Generated Hexagram: \(selectedHexagram?.name ?? "Unknown")")
         
+        guard let hexagram1 = selectedHexagram, let hexagram2 = transformedHexagram else {
+            print("Missing hexagrams, cannot fetch interpretation.")
+            return
+        }
+        
+        isLoading = true
+
+        let deepSeekService = DeepSeekService()
+        deepSeekService.fetchInterpretation(
+            question: question,
+            hexagram1: hexagram1,
+            hexagram2: hexagram2
+        ) { [weak self] interpretationText in
+            DispatchQueue.main.async {
+                self?.interpretation = interpretationText ?? "AI 神棍没有给出解读 🧐"
+                self?.isLoading = false
+            }
+        }
+
 
     }
     
