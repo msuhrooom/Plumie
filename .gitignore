@@ -1,1 +1,8 @@
+# Ignore all .log files
+*.log
+
+# Ignore the logs directory
+logs/
+
+# Ignore a specific file
 Secrets.swift
