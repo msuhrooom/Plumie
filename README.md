@@ -25,7 +25,7 @@ This project is a SwiftUI-based application that allows users to generate hexagr
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-repo/hexagram-app.git
+   git clone https://github.com/msuhrooom/Plumie
    ```
 2. Open the project in Xcode.
 3. Run on an iOS Simulator or a physical device.
