@@ -52,10 +52,11 @@ struct HexagramCardView: View {
             Text("AI 解读")
                 .font(.headline)
                 .bold()
-            
-            Text(interpretation)
-                .font(.body)
-                .foregroundColor(.primary)
+            ScrollView {
+                Text(interpretation)
+                    .font(.body)
+                    .foregroundColor(.primary)
+            }
             
         }
         .padding()
